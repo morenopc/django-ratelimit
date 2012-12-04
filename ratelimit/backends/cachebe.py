@@ -22,6 +22,9 @@ class CacheBackend(BaseBackend):
                 # certain characters.
                 val = hashlib.sha1(val).hexdigest()
                 keys.append(u'field:%s:%s' % (f, val))
+        
+        if not keys:
+            return [CACHE_PREFIX]
         return [CACHE_PREFIX + k for k in keys]
 
     def count(self, request, ip=True, field=None, period=60):
